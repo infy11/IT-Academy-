@@ -10,13 +10,16 @@ margin-top: 10px;
 .centre{
 margin: auto;
 }
+
 .margin1{
   margin-top: 5%;
   margin-bottom: 5%;
 }
 
-.special-card {
-  
+.special-card {  
   background-color: rgba(245, 245, 245, 1);
   opacity: .9;
 }
+
+
+

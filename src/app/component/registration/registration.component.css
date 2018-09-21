@@ -1,0 +1,22 @@
+.topSpace{
+margin-top: 10px;
+}
+
+.cardSpace {
+  margin-top:20px;
+  align-content: center;
+}
+
+.centre{
+margin: auto;
+}
+.margin1{
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+.special-card {
+  
+  background-color: rgba(245, 245, 245, 1);
+  opacity: .9;
+}

@@ -1,0 +1,76 @@
+
+<div class="container margin1">
+  <div class="card shadow special-card">
+      <div class="card-body">
+         <div class="row">
+            <div class="col-sm">
+              <div class="card shadow">
+                <div class="card-body">
+                  <h5 class="card-title">Student info</h5>
+                    <div class="row">
+                    <div class="col-sm">
+                      <input type="text"  class="form-control topSpace"  placeholder="First name">
+                      <select class="form-control topSpace" id="exampleFormControlSelect1">
+                          <option selected>Category</option>
+                          <option>UR</option>
+                          <option>OBC</option>
+                          <option>SC</option>
+                          <option>ST</option>                            
+                        </select>
+                        <input type="text"  class="form-control topSpace"  placeholder="Father Name">
+                        <input type="text"  class="form-control topSpace"  placeholder="Address">
+                        <input type="text"  class="form-control topSpace"  placeholder="State">
+                      </div>
+                      <div class="col-sm">
+                      <input type="text" class="form-control topSpace " placeholder="Last name">
+                      <select class="form-control topSpace" id="exampleFormControlSelect1">
+                          <option selected>Gender</option>
+                          <option>MALE</option>
+                          <option>FEMALE</option>                                    
+                        </select>
+                        <input type="text"  class="form-control topSpace"  placeholder="Mother Name">
+                        <input type="text"  class="form-control topSpace"  placeholder="City">
+                        <input type="text"  class="form-control topSpace" 
+                        placeholder="Date" (focus)="d.toggle()" ngbDatepicker #d="ngbDatepicker"/>
+                    </div>                    
+                  </div>
+              </div>
+            </div>  
+            <hr size="25">    
+            <button type="button" class="btn btn-primary shadow">Submit</button>  
+      </div>
+      <div class="col-sm">
+          <div class="card shadow">
+              <div class="card-body">
+                  <h5 class="card-title">Course info</h5>
+                    <div class="row">
+                      <div class="col-sm">
+                         <input type="number"  class="form-control topSpace"  placeholder="Reg no">
+                         <input type="text"  class="form-control topSpace"  placeholder="Course Name">
+                         <input type="text"  class="form-control topSpace" 
+                         placeholder="Date" (focus)="d.toggle()" ngbDatepicker #d="ngbDatepicker"/>
+                         </div>
+                         <div class="col-sm">
+                          <input type="text"  class="form-control topSpace"  placeholder="Centre Name">
+                          <input type="number"  class="form-control topSpace"  placeholder="Duration">
+                         </div>   
+                      </div>
+                   </div>      
+                </div>
+                <div class="card shadow topSpace">
+                  <div class="card-body">
+                      <div class="custom-file">
+                          <input type="file" class="custom-file-input" id="inputGroupFile02">
+                          <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
+                        </div>
+                        <div class="input-group-append">
+                          <span class="input-group-text topSpace" id="inputGroupFileAddon02">Upload</span>
+                        </div>
+                  </div>
+                </div>
+          </div>
+      </div>
+    </div>
+    </div>
+     
+  </div>

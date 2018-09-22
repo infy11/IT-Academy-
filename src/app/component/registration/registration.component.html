@@ -1,4 +1,4 @@
-
+{{student|json}}
 <div class="container margin1">
   <div class="card shadow special-card">
       <div class="card-body">
@@ -8,14 +8,11 @@
                 <div class="card-body">
                   <h5 class="card-title">Student info</h5>
                     <div class="row">
-                    <div class="col-sm">
-                      <input type="text" required minlength="10" class="form-control topSpace"  placeholder="First name">
+                      <div class="col-sm">
+                      <input type="text" [(ngModel)]="student.firstName" required class="form-control topSpace"  placeholder="First name" name="firstName">
                       <select class="form-control topSpace" id="exampleFormControlSelect1">
                           <option selected>Category</option>
-                          <option>UR</option>
-                          <option>OBC</option>
-                          <option>SC</option>
-                          <option>ST</option>                            
+                          <option *ngFor="let c of category" [value]="c">{{c}}</option>                            
                         </select>
                         <input type="text" required minlength="16" class="form-control topSpace"  placeholder="Father Name">
                         <div class="input-group">
@@ -29,22 +26,21 @@
                         
                       </div>
                       <div class="col-sm">
-                      <input type="text" required minlength="10" class="form-control topSpace " placeholder="Last name">
+                      <input type="text" required minlength="10" class="form-control topSpace" required placeholder="Last name">
                       <select class="form-control topSpace" required id="exampleFormControlSelect1">
                           <option selected>Gender</option>
-                          <option>MALE</option>
-                          <option>FEMALE</option>                                    
+                          <option *ngFor="let g of gender" [value]="g">{{g}}</option> 
+                                   
                         </select>
                         <input type="text" required class="form-control topSpace"  placeholder="Mother Name">  
                         <input type="text" required class="form-control topSpace" 
                         placeholder="Date of Birth" (focus)="d.toggle()"  ngbDatepicker #d="ngbDatepicker"/>
                         <input type="text" required class="form-control topSpace"  placeholder="Village">
-                        <select class="form-control topSpace" required id="exampleFormControlSelect1">
+                        <select class="form-control topSpace" required id="exampleFormControlSelect1"> 
                             <option selected>State</option>
-                            <option>UTTAR PRADESH</option>
-                            <option>UTTARAKHAND</option>                                    
+                          <option *ngFor="let s of state" [value]="s">{{s}}</option>                                    
                           </select>
-                                               
+                                    
                     </div>                    
                   </div>
               </div>

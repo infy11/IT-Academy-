@@ -10,33 +10,31 @@
                     <div class="row">
                       <div class="col-sm">
                       <input type="text" [(ngModel)]="student.firstName" required class="form-control topSpace"  placeholder="First name" name="firstName">
-                      <select class="form-control topSpace" id="exampleFormControlSelect1">
+                      <select class="form-control topSpace" [(ngModel)]="student.category" required name="category" id="exampleFormControlSelect1">
                           <option selected>Category</option>
                           <option *ngFor="let c of category" [value]="c">{{c}}</option>                            
                         </select>
-                        <input type="text" required minlength="16" class="form-control topSpace"  placeholder="Father Name">
+                        <input type="text" [(ngModel)]="student.fatherName" required class="form-control topSpace" name="fatherName" placeholder="Father Name">
                         <div class="input-group">
                           <div class="input-group-prepend">
                               <span class="input-group-text topSpace" id="basic-addon1">+91</span>
                           </div>
-                          <input  type="number" required minlength="10"  class="form-control topSpace"  placeholder="Mobile No">
+                          <input  type="number" [(ngModel)]="student.mobileNo" required class="form-control topSpace" name="mobileNo"  placeholder="Mobile No">
                         </div> 
-                        <input type="text" required  class="form-control topSpace"  placeholder="Address">
-                        <input type="text" required class="form-control topSpace"  placeholder="City">                        
-                        
-                      </div>
+                        <input type="text" [(ngModel)]="student.address" required  class="form-control topSpace" name="address"  placeholder="Address">
+                        <input type="text" [(ngModel)]="student.city" required required class="form-control topSpace" name="city" placeholder="City">                                        </div>
                       <div class="col-sm">
-                      <input type="text" required minlength="10" class="form-control topSpace" required placeholder="Last name">
-                      <select class="form-control topSpace" required id="exampleFormControlSelect1">
+                      <input type="text" [(ngModel)]="student.lastName" required class="form-control topSpace" required placeholder="Last name" name="lastName">
+                      <select class="form-control topSpace" [(ngModel)]="student.gender" name="gender" required id="exampleFormControlSelect1">
                           <option selected>Gender</option>
                           <option *ngFor="let g of gender" [value]="g">{{g}}</option> 
                                    
                         </select>
-                        <input type="text" required class="form-control topSpace"  placeholder="Mother Name">  
-                        <input type="text" required class="form-control topSpace" 
+                        <input type="text" [(ngModel)]="student.motherName" required required class="form-control topSpace" name="motherName" placeholder="MotherName">  
+                        <input type="text"[(ngModel)]="student.dob" required class="form-control topSpace" name="dob" 
                         placeholder="Date of Birth" (focus)="d.toggle()"  ngbDatepicker #d="ngbDatepicker"/>
-                        <input type="text" required class="form-control topSpace"  placeholder="Village">
-                        <select class="form-control topSpace" required id="exampleFormControlSelect1"> 
+                        <input type="text" [(ngModel)]="student.village" required required class="form-control topSpace" name="village" placeholder="Village">
+                        <select class="form-control topSpace" [(ngModel)]="student.state" required  name="state" id="exampleFormControlSelect1"> 
                             <option selected>State</option>
                           <option *ngFor="let s of state" [value]="s">{{s}}</option>                                    
                           </select>
@@ -52,14 +50,14 @@
                   <h5 class="card-title">Course info</h5>
                     <div class="row">
                       <div class="col-sm">
-                         <input type="number"  class="form-control topSpace"  placeholder="Reg no">
-                         <input type="text"  class="form-control topSpace"  placeholder="Course Name">
-                         <input type="text"  class="form-control topSpace" 
+                         <input type="number"  [(ngModel)]="course.regNo" required class="form-control topSpace" name="regno" placeholder="Reg no">
+                         <input type="text" [(ngModel)]="course.courseName" required class="form-control topSpace" name="courseName"  placeholder="Course Name">
+                         <input type="text" [(ngModel)]="course.date" required class="form-control topSpace" name="date"
                          placeholder="Date" (focus)="e.toggle()"  ngbDatepicker #e="ngbDatepicker"/>
                          </div>
                          <div class="col-sm">
-                          <input type="text"  class="form-control topSpace"  placeholder="Centre Name">
-                          <input type="number"  class="form-control topSpace"  placeholder="Duration">
+                          <input type="text" [(ngModel)]="course.centreName" required class="form-control topSpace" name="centreName" placeholder="Centre Name">
+                          <input type="number" [(ngModel)]="course.duration" required class="form-control topSpace" name="duration"  placeholder="Duration">
                          </div>   
                       </div>
                    </div>      

@@ -1,130 +1,212 @@
-{{student|json}}
+{{student |json}}
 <div class="container margin1">
-  <div class="card shadow special-card"><!--bodycard-->
-      <div class="card-body">
-         <div class="row">
-            <div class="col-sm">
-              <div class="card shadow"> <!-- card1-->
-                <div class="card-body">
-                  <h5 class="card-title">Student info</h5>
-                    <div class="row">
-                      <div class="col-sm">
-                      <input type="text" [(ngModel)]="student.firstName" required class="form-control topSpace"  placeholder="First name" name="firstName">
-                      <select class="form-control topSpace" [(ngModel)]="student.category" required name="category" id="exampleFormControlSelect1">
-                          <option selected>Category</option>
-                          <option *ngFor="let c of category" [value]="c">{{c}}</option>                            
-                        </select>
-                        <input type="text" [(ngModel)]="student.fatherName" required class="form-control topSpace" name="fatherName" placeholder="Father Name">
-                        <div class="input-group">
-                          <div class="input-group-prepend">
-                              <span class="input-group-text topSpace" id="basic-addon1">+91</span>
-                          </div>
-                          <input  type="number" [(ngModel)]="student.mobileNo" required class="form-control topSpace" name="mobileNo"  placeholder="Mobile No">
-                        </div> 
-                        <input type="text" [(ngModel)]="student.address" required  class="form-control topSpace" name="address"  placeholder="Address">
-                        <input type="text" [(ngModel)]="student.city" required required class="form-control topSpace" name="city" placeholder="City">                                        </div>
-                      <div class="col-sm">
-                      <input type="text" [(ngModel)]="student.lastName" required class="form-control topSpace" required placeholder="Last name" name="lastName">
-                      <select class="form-control topSpace" [(ngModel)]="student.gender" name="gender" required id="exampleFormControlSelect1">
-                          <option selected>Gender</option>
-                          <option *ngFor="let g of gender" [value]="g">{{g}}</option> 
-                                   
-                        </select>
-                        <input type="text" [(ngModel)]="student.motherName" required required class="form-control topSpace" name="motherName" placeholder="MotherName">  
-                        <input type="text"[(ngModel)]="student.dob" required class="form-control topSpace" name="dob" 
-                        placeholder="Date of Birth" (focus)="d.toggle()"  ngbDatepicker #d="ngbDatepicker"/>
-                        <input type="text" [(ngModel)]="student.village" required required class="form-control topSpace" name="village" placeholder="Village">
-                        <select class="form-control topSpace" [(ngModel)]="student.state" required  name="state" id="exampleFormControlSelect1"> 
-                            <option selected>State</option>
-                          <option *ngFor="let s of state" [value]="s">{{s}}</option>    </select>              
-                    </div>                    
-                  </div>
+  <form  (ngSubmit)="onSubmit()">
+  <div class="card shadow special-card">
+    <!--bodycard-->
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm">
+          <div class="card shadow">
+            <!-- card1-->
+            <div class="card-body">
+              <h5 class="card-title">Student info</h5>
+              <div class="row">
+                <div class="col-sm">
+                  <input type="text" [(ngModel)]="student.firstName" required class="form-control topSpace" placeholder="First name"
+                    name="firstName">
+                </div>
+                <div class="col-sm">
+                  <input type="text" [(ngModel)]="student.lastName" required class="form-control topSpace" required
+                    placeholder="Last name" name="lastName">
+                </div>
               </div>
-            </div>  
-        </div>
-      <div class="col-sm">
-          <div class="card shadow"><!--card 2-->
-              <div class="card-body">
-                  <h5 class="card-title">Course info</h5>
-                    <div class="row">
-                      <div class="col-sm">
-                         <input type="number"  [(ngModel)]="course.regNo" required class="form-control topSpace" name="regno" placeholder="Reg no">
-                         <input type="text" [(ngModel)]="course.courseName" required class="form-control topSpace" name="courseName"  placeholder="Course Name">
-                         <input type="text" [(ngModel)]="course.date" required class="form-control topSpace" name="date"
-                         placeholder="Date" (focus)="e.toggle()"  ngbDatepicker #e="ngbDatepicker"/>
-                         </div>
-                         <div class="col-sm">
-                          <input type="text" [(ngModel)]="course.centreName" required class="form-control topSpace" name="centreName" placeholder="Centre Name">
-                          <input type="number" [(ngModel)]="course.duration" required class="form-control topSpace" name="duration"  placeholder="Duration">
-                         </div>   
-                      </div>
-                   </div>      
+              <div class="row">
+                <div class="col-sm">
+                  <input type="text" [(ngModel)]="student.fatherName" required class="form-control topSpace" name="fatherName"
+                    placeholder="Father Name">
                 </div>
-                <br>
-                <div class="card shadow topSpace"><!--card3-->
-                  <div class="card-body">
-                    <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <button class="input-group-text" id="inputGroupFileAddon01">Upload</button>
-                      </div>
-                      <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                        <label class="custom-file-label" for="inputGroupFile01">filename</label>
-                      </div>
+                <div class="col-sm">
+                  <input type="text" [(ngModel)]="student.motherName" required required class="form-control topSpace"
+                    name="motherName" placeholder="MotherName">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm">
+                  <select class="form-control topSpace" value="student.category" [(ngModel)]="student.category"
+                    required name="category" id="exampleFormControlSelect1">
+                    <option [value]="student.category" selected hidden>{{student.category}}</option>
+                    <option *ngFor="let c of category" [value]="c">{{c}}</option>
+                  </select>
+                </div>
+                <div class="col-sm">
+                  <select class="form-control topSpace" [(ngModel)]="student.gender" name="gender" required id="exampleFormControlSelect1">
+                    <option [value]="student.gender" selected hidden>{{student.gender}}</option>
+                    <option *ngFor="let g of gender" [value]="g">{{g}}</option>
+                  </select>
+                </div>
+
+              </div>
+              <div class="row">
+                <div class="col-sm">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text topSpace" id="basic-addon1">+91</span>
                     </div>
+                    <input type="number" [(ngModel)]="student.mobileNo" required class="form-control topSpace" name="mobileNo"
+                      placeholder="Mobile No">
                   </div>
                 </div>
+                <div class="col-sm">
+                  <input type="text" [(ngModel)]="student.dob" required class="form-control topSpace" name="dob"
+                    placeholder="Date of Birth" (focus)="d.toggle()" ngbDatepicker #d="ngbDatepicker" />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm">
+                  <select class="form-control topSpace" [(ngModel)]="student.state" required name="state" id="exampleFormControlSelect1">
+                    <option [value]="student.state" selected hidden>{{student.state}}</option>
+                    <option *ngFor="let s of state" [value]="s">{{s}}</option>
+                  </select>
+                </div>
+                <div class="col-sm">
+                  <input type="text" [(ngModel)]="student.address" required class="form-control topSpace" name="address"
+                    placeholder="Address">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm">
+
+                  <input type="text" [(ngModel)]="student.village" required required class="form-control topSpace" name="village"
+                    placeholder="Village">
+                </div>
+                <div class="col-sm">
+                  <input type="text" [(ngModel)]="student.city" required required class="form-control topSpace" name="city"
+                    placeholder="City">
+                </div>
+              </div>
+
+
+            </div>
           </div>
+        </div>
+
+
+        <div class="col-sm">
+          <div class="card shadow">
+            <!--card 2-->
+            <div class="card-body">
+              <h5 class="card-title">Course info</h5>
+
+              <div class="row">
+                <div class="col-sm">
+                  <input type="number" [(ngModel)]="course.regNo" required class="form-control topSpace" name="regno"
+                    placeholder="Reg no">
+                </div>
+                <div class="col-sm">
+                  <input type="text" [(ngModel)]="course.centreName" required class="form-control topSpace" name="centreName"
+                    placeholder="Centre Name">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm">
+                  <input type="text" [(ngModel)]="course.courseName" required class="form-control topSpace" name="courseName"
+                    placeholder="Course Name">
+                </div>
+                <div class="col-sm">
+                  <input type="number" [(ngModel)]="course.duration" required class="form-control topSpace" name="duration"
+                    placeholder="Duration">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm">
+                  <input type="text" [(ngModel)]="course.date" required class="form-control topSpace" name="date"
+                    placeholder="Date" (focus)="e.toggle()" ngbDatepicker #e="ngbDatepicker" />
+                </div>
+                <div class="col-sm"></div>
+              </div>
+
+            </div>
+          </div>
+          <br>
+          <div class="card shadow topSpace">
+            <!--card3-->
+            <div class="card-body">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <button class="input-group-text" id="inputGroupFileAddon01">Upload</button>
+                </div>
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                  <label class="custom-file-label" for="inputGroupFile01">filename</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <br>
-                    <div class="card shadow"><!--card4-->
-                       <div class="card-body">
-                         <h5 class="card-title">Education Details</h5>
-                         <table class="table table-borderless table-hover table-responsive">
-                            <thead>
-                                <tr>
-                                  <th scope="col">#</th>
-                                  <th scope="col">Subjects</th>
-                                  <th scope="col">Name of Board</th>
-                                  <th scope="col">Passing Year</th>
-                                  <th scope="col">Marks Obtained</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <th scope="row">High School</th>
-                                  <td><input type="text"  class="form-control "  placeholder="Centre Name"></td>
-                                  <td><input type="text"  class="form-control "  placeholder="Centre Name"></td>
-                                  <td><input type="text"  class="form-control "  placeholder="Centre Name"></td>
-                                  <td><input type="text"  class="form-control "  placeholder="Centre Name"></td>
-                                </tr>
-                                <tr>
-                                  <th scope="row">Intermediate</th>
-                                  <td><input type="text"  class="form-control "  placeholder="Centre Name"></td>
-                                  <td><input type="text"  class="form-control "  placeholder="Centre Name"></td>
-                                  <td><input type="text"  class="form-control "  placeholder="Centre Name"></td>
-                                  <td><input type="text"  class="form-control "  placeholder="Centre Name"></td>
-                                </tr>
-                                <tr>
-                                  <th scope="row">Graduation</th>
-                                  <td><input type="text"  class="form-control "  placeholder="Centre Name"></td>
-                                  <td><input type="text"  class="form-control "  placeholder="Centre Name"></td>
-                                  <td><input type="text"  class="form-control "  placeholder="Centre Name"></td>
-                                  <td><input type="text"  class="form-control "  placeholder="Centre Name"></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Others</th>
-                                    <td><input type="text"  class="form-control "  placeholder="Centre Name"></td>
-                                    <td><input type="text"  class="form-control "  placeholder="Centre Name"></td>
-                                    <td><input type="text"  class="form-control "  placeholder="Centre Name"></td>
-                                    <td><input type="text"  class="form-control "  placeholder="Centre Name"></td>
-                                  </tr>
-                              </tbody>
-                         </table>
-                     </div>
-                     </div>
-      </div>    
-      <button type="button" class="btn btn-primary shadow">Submit</button>
+      <div class="card shadow">
+        <!--card4-->
+        <div class="card-body">
+          <h5 class="card-title">Education Details</h5>
+          <table class="table table-borderless table-hover table-responsive">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Subjects</th>
+                <th scope="col">Name of Board</th>
+                <th scope="col">Passing Year</th>
+                <th scope="col">Marks Obtained</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">High School</th>
+                <td><input type="text" [(ngModel)]="highschool.subject" name=subject class="form-control " placeholder="Subject"></td>
+                <td><input type="text" [(ngModel)]="highschool.board" name=board class="form-control " placeholder="Board"></td>
+                <td><input type="text" [(ngModel)]="highschool.passingYear" name=passingyear class="form-control "
+                    placeholder="Passing Year"></td>
+                <td><input type="text" [(ngModel)]="highschool.marksObtained" name=marksObtained class="form-control "
+                    placeholder="Marks Obtained"></td>
+              </tr>
+              <tr>
+                <th scope="row">Intermediate</th>
+                <td><input type="text" [(ngModel)]="intermediate.subject" name=int_subject class="form-control "
+                    placeholder="Subject"></td>
+                <td><input type="text" [(ngModel)]="intermediate.board" name=int_board class="form-control "
+                    placeholder="Board"></td>
+                <td><input type="text" [(ngModel)]="intermediate.passingYear" name=passingYear class="form-control "
+                    placeholder="Passing Year"></td>
+                <td><input type="text" [(ngModel)]="intermediate.marksObtained" name=int_marksObtained class="form-control "
+                    placeholder="Marks Obtained"></td>
+              </tr>
+              <tr>
+                <th scope="row">Graduation</th>
+                <td><input type="text" [(ngModel)]="graduation.subject" name=grad_subject class="form-control "
+                    placeholder="Subject"></td>
+                <td><input type="text" [(ngModel)]="graduation.board" name=grad_board class="form-control " placeholder="Board"></td>
+                <td><input type="text" [(ngModel)]="graduation.passingYear" name=grad_passingyear class="form-control "
+                    placeholder="Passing Year"></td>
+                <td><input type="text" [(ngModel)]="graduation.marksObtained" name=grad_marksObtained class="form-control "
+                    placeholder="Marks Obtained"></td>
+              </tr>
+              <tr>
+                <th scope="row">Others</th>
+                <td><input type="text" [(ngModel)]="others.subject" name=others_subject class="form-control "
+                    placeholder="Subject"></td>
+                <td><input type="text" [(ngModel)]="others.board" name=others_board class="form-control " placeholder="Board"></td>
+                <td><input type="text" [(ngModel)]="others.passingYear" name=others_passingyear class="form-control "
+                    placeholder="Passing Year"></td>
+                <td><input type="text" [(ngModel)]="others.marksObtained" name=others_marksObtained class="form-control "
+                    placeholder="Marks Obtained"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary shadow">Submit</button>
   </div>
-  
+</form>
+
 </div>

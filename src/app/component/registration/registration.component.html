@@ -1,6 +1,7 @@
 {{student |json}}
 <div class="container margin1">
 <<<<<<< HEAD
+<<<<<<< HEAD
   <div class="card shadow special-card"><!--bodycard-->
       <div class="card-body">
          <div class="row">
@@ -93,6 +94,28 @@
                     placeholder="Last name" name="lastName">
                 </div>
               </div>
+=======
+  <form  (ngSubmit)="onSubmit()">
+  <div class="card shadow special-card">
+    <!--bodycard-->
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm">
+          <div class="card shadow">
+            <!-- card1-->
+            <div class="card-body">
+              <h5 class="card-title">Student info</h5>
+              <div class="row">
+                <div class="col-sm">
+                  <input type="text" [(ngModel)]="student.firstName" required class="form-control topSpace" placeholder="First name"
+                    name="firstName">
+                </div>
+                <div class="col-sm">
+                  <input type="text" [(ngModel)]="student.lastName" required class="form-control topSpace" required
+                    placeholder="Last name" name="lastName">
+                </div>
+              </div>
+>>>>>>> 1aa73fe83ad551caab82f8382ab5b23481d1c1b9
               <div class="row">
                 <div class="col-sm">
                   <input type="text" [(ngModel)]="student.fatherName" required class="form-control topSpace" name="fatherName"
@@ -124,6 +147,9 @@
                   <div class="input-group">
                     <div class="input-group-prepend">
                       <span class="input-group-text topSpace" id="basic-addon1">+91</span>
+<<<<<<< HEAD
+>>>>>>> 1aa73fe83ad551caab82f8382ab5b23481d1c1b9
+=======
 >>>>>>> 1aa73fe83ad551caab82f8382ab5b23481d1c1b9
                     </div>
                     <input type="number" [(ngModel)]="student.mobileNo" required class="form-control topSpace" name="mobileNo"
@@ -161,6 +187,7 @@
 
 
             </div>
+<<<<<<< HEAD
           </div>
         </div>
 
@@ -217,6 +244,64 @@
             </div>
           </div>
         </div>
+=======
+          </div>
+        </div>
+
+
+        <div class="col-sm">
+          <div class="card shadow">
+            <!--card 2-->
+            <div class="card-body">
+              <h5 class="card-title">Course info</h5>
+
+              <div class="row">
+                <div class="col-sm">
+                  <input type="number" [(ngModel)]="course.regNo" required class="form-control topSpace" name="regno"
+                    placeholder="Reg no">
+                </div>
+                <div class="col-sm">
+                  <input type="text" [(ngModel)]="course.centreName" required class="form-control topSpace" name="centreName"
+                    placeholder="Centre Name">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm">
+                  <input type="text" [(ngModel)]="course.courseName" required class="form-control topSpace" name="courseName"
+                    placeholder="Course Name">
+                </div>
+                <div class="col-sm">
+                  <input type="number" [(ngModel)]="course.duration" required class="form-control topSpace" name="duration"
+                    placeholder="Duration">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm">
+                  <input type="text" [(ngModel)]="course.date" required class="form-control topSpace" name="date"
+                    placeholder="Date" (focus)="e.toggle()" ngbDatepicker #e="ngbDatepicker" />
+                </div>
+                <div class="col-sm"></div>
+              </div>
+
+            </div>
+          </div>
+          <br>
+          <div class="card shadow topSpace">
+            <!--card3-->
+            <div class="card-body">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <button class="input-group-text" id="inputGroupFileAddon01">Upload</button>
+                </div>
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                  <label class="custom-file-label" for="inputGroupFile01">filename</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+>>>>>>> 1aa73fe83ad551caab82f8382ab5b23481d1c1b9
       </div>
       <br>
       <div class="card shadow">

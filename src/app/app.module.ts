@@ -8,14 +8,16 @@ import { RegistrationComponent } from './component/registration/registration.com
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {MarksComponent} from './marks/marks.component'
+import {MarksComponent} from './marks/marks.component';
+import { HomeComponent } from './home/home.component'
 
 
 const routes: Routes = [
   { path: 'Login', component: LoginComponent},
   { path: 'Registration', component:RegistrationComponent },
   { path: 'Navbar', component:NavbarComponent },
-  { path: 'Marks',component:MarksComponent}
+  { path: 'Marks',component:MarksComponent},
+  { path:'Home',component:HomeComponent}
 ];
 
 @NgModule({
@@ -25,7 +27,8 @@ const routes: Routes = [
     RegistrationComponent,
     NavbarComponent,
     FooterComponent,
-    MarksComponent
+    MarksComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

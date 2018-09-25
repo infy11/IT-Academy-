@@ -1,4 +1,5 @@
 import {Course} from './course';
+import {Education} from './education';
 
 export class Student {
   constructor(
@@ -14,6 +15,7 @@ export class Student {
     public village:String,
     public city:String,
     public state:String,
-    public course:Course
+    public course:Course,
+    public education:Education[]
   ){}
 }

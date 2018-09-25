@@ -23,10 +23,6 @@ export class RegistrationComponent implements OnInit {
   others=new Education('others','','','','');
 
 
-  
-
- 
-  
   student:Student=new Student('','','category','gender','','','','','','','','state',this.course,this.educationDetails);
  onSubmit(){
    this.educationDetails.push(this.highschool);

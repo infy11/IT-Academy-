@@ -11,9 +11,10 @@
                     </div>
                     <div class="form-group mx-sm-2 mb-2">
                       <label for="rollno" class="sr-only">rollno</label>
-                      <input type="text"  name="reg" [(ngModel)]="marks.registrationNum" class="form-control" id="reg" placeholder="Registration">
+                      <input type="text" required name="reg" #regno="ngModel" [(ngModel)]="marks.registrationNum" class="form-control" id="reg" placeholder="Registration">
                     </div>
                     <button  class="btn btn-primary mb-2">Search </button>
+                    
                   </form>
             </div>
             </div>

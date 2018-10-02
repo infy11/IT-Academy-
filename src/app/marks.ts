@@ -1,6 +1,10 @@
 export class Marks {
   constructor(
-    public type:string,
+   
+    public semester:string,
+    public obtainedMarks:string,
+    public maxMarks:string,
+    public grade:string
      
   ){}
 }

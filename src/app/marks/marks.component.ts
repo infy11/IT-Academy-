@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Marks} from '../marks';
+import {MarksWrapper} from '../marks-wrapper';
 
 @Component({
   selector: 'app-marks',
@@ -7,7 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MarksComponent implements OnInit {
 
-  constructor() { }
+  sem1:Marks=new Marks('semester1','','','');
+  sem2:Marks=new Marks('semester2','','','');
+  
+  marks:MarksWrapper=new MarksWrapper('',[this.sem1,this.sem2]);
+
+  constructor() {
+    
+   }
+
+   save(){
+     console.log(JSON.stringify(this.marks));
+   }
 
   ngOnInit() {
   }

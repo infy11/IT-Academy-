@@ -11,9 +11,9 @@
                     </div>
                     <div class="form-group mx-sm-2 mb-2">
                       <label for="rollno" class="sr-only">rollno</label>
-                      <input type="password" required  [(ngModel)]="hero.name" #name="ngModel" name="password" class="form-control" id="inputPassword2" placeholder="Roll NO">
+                      <input type="text"  name="reg" [(ngModel)]="marks.registrationNum" class="form-control" id="reg" placeholder="Registration">
                     </div>
-                    <button type="submit" class="btn btn-primary mb-2">Search </button>
+                    <button  class="btn btn-primary mb-2">Search </button>
                   </form>
             </div>
             </div>
@@ -31,16 +31,16 @@
               <div class="row">
 
                   <div class="col-md-3">
-                    <input type=text class="form-control" disabled placeholder="semester 1">
+                    <input type=text class="form-control"   disabled placeholder="semester 1">
                   </div>
                   <div class="col-md-3">
-                    <input type=text class="form-control" placeholder="obtained Marks ">
+                    <input type=text class="form-control" [(ngModel)]="sem1.obtainedMarks" placeholder="Obtained Marks"/>
                   </div>
                   <div class="col-md-3">
-                    <input type=text class="form-control" placeholder="Min/Max Marks ">
+                    <input type=text class="form-control"   [(ngModel)]="sem1.maxMarks" placeholder="Min/Max Marks ">
                   </div>
                   <div class="col-md-3">
-                    <input type=text class="form-control" placeholder="Grade">
+                    <input type=text class="form-control" [(ngModel)]="sem1.grade" placeholder="Grade">
                   </div>
             
                 </div>
@@ -51,20 +51,20 @@
                       <input type=text class="form-control" disabled placeholder="semester 2">
                     </div>
                     <div class="col-md-3">
-                      <input type=text class="form-control" placeholder="obtained Marks ">
+                      <input type=text class="form-control" [(ngModel)]="sem2.obtainedMarks" placeholder="Obtained Marks ">
                     </div>
                     <div class="col-md-3">
-                      <input type=text class="form-control" placeholder="Min/Max Marks ">
+                      <input type=text class="form-control" [(ngModel)]="sem2.maxMarks"   placeholder="Min/Max Marks ">
                     </div>
                     <div class="col-md-3">
-                      <input type=text class="form-control" placeholder="Grade">
+                      <input type=text class="form-control"  [(ngModel)]="sem2.grade" placeholder="Grade">
                     </div>
               
                   </div>
                   <div class="row row-top-space">
-                    <input type="submit" class="form-control btn-block btn-primary">
+                    <button (click)="save()"  class="form-control btn-block btn-primary">Save </button>
 
-                  </div>
+                  </div> 
               </div>
 
       </div>

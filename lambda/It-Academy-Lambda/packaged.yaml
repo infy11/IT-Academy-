@@ -1,7 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: 'sam-app
-
-  Sample SAM Template for sam-app
+Description: 'IT-Academy
 
   '
 Globals:
@@ -40,4 +38,27 @@ Resources:
       Handler: app.lambdaHandler
       Runtime: nodejs8.10
     Type: AWS::Serverless::Function
+  SaveStudent:
+    Properties:
+      CodeUri: s3://it-academy-lambda/45378ac32effeb7054fdd8f98b198352
+      Events:
+        SaveStudent:
+          Properties:
+            Method: post
+            Path: /save
+          Type: Api
+      Handler: app.lambdaHandler
+      Policies: AmazonDynamoDBFullAccess
+      Runtime: nodejs8.10
+    Type: AWS::Serverless::Function
+  StudentTable:
+    Properties:
+      PrimaryKey:
+        Name: id
+        Type: String
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+      TableName: Student
+    Type: AWS::Serverless::SimpleTable
 Transform: AWS::Serverless-2016-10-31

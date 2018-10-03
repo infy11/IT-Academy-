@@ -1,9 +1,9 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
-    sam-app
+    IT-Academy
 
-    Sample SAM Template for sam-app
+    
     
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
@@ -28,6 +28,30 @@ Resources:
                     Properties:
                         Path: /hello
                         Method: get
+    SaveStudent:
+        Type: AWS::Serverless::Function
+        Properties:
+            CodeUri: save_students/
+            Handler: app.lambdaHandler
+            Runtime: nodejs8.10
+            Policies: AmazonDynamoDBFullAccess
+            Events:
+                SaveStudent:
+                    Type: Api
+                    Properties:
+                        Path: /save
+                        Method: post
+
+    StudentTable:
+        Type: AWS::Serverless::SimpleTable   
+        Properties: 
+            TableName: Student
+            PrimaryKey:
+                Name: id
+                Type: String
+            ProvisionedThroughput:
+                ReadCapacityUnits: 5
+                WriteCapacityUnits: 5
 
 Outputs:
 

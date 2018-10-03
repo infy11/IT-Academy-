@@ -9,7 +9,10 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {MarksComponent} from './marks/marks.component';
-import { HomeComponent } from './home/home.component'
+import { HomeComponent } from './home/home.component';
+import {StudentService} from './student.service';
+import { HttpClientModule } from '@angular/common/http';
+
 
 
 const routes: Routes = [
@@ -35,9 +38,12 @@ const routes: Routes = [
     RouterModule,
     NgbModule,
     FormsModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    StudentService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

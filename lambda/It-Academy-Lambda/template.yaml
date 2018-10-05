@@ -12,22 +12,6 @@ Globals:
 
 
 Resources:
-
-    HelloWorldFunction:
-        Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
-        Properties:
-            CodeUri: hello_world/
-            Handler: app.lambdaHandler
-            Runtime: nodejs8.10
-            Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
-                Variables:
-                    PARAM1: VALUE
-            Events:
-                HelloWorld:
-                    Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
-                    Properties:
-                        Path: /hello
-                        Method: get
     SaveStudent:
         Type: AWS::Serverless::Function
         Properties:
@@ -41,13 +25,19 @@ Resources:
                     Properties:
                         Path: /save
                         Method: post
+                OptionStudent:
+                    Type: Api
+                    Properties:
+                        Path: /save
+                        Method: options
+                                   
 
     StudentTable:
         Type: AWS::Serverless::SimpleTable   
         Properties: 
             TableName: Student
             PrimaryKey:
-                Name: id
+                Name: regNo
                 Type: String
             ProvisionedThroughput:
                 ReadCapacityUnits: 5
@@ -59,10 +49,4 @@ Outputs:
       Description: "API Gateway endpoint URL for Prod stage for Hello World function"
       Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
 
-    HelloWorldFunction:
-      Description: "Hello World Lambda Function ARN"
-      Value: !GetAtt HelloWorldFunction.Arn
 
-    HelloWorldFunctionIamRole:
-      Description: "Implicit IAM Role created for Hello World function"
-      Value: !GetAtt HelloWorldFunctionRole.Arn

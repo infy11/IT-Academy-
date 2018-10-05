@@ -144,8 +144,4 @@ Here are a few ideas that you can use to get more acquainted as to how this over
 
 Next, you can use the following resources to know more about beyond hello world samples and how others structure their Serverless applications:
 
-
-
- 
-aws cloudformation deploy --template-file packaged.yaml --stack-name It-Academy --capabilities CAPABILITY_IAM
-
+* [AWS Serverless Application Repository](https://aws.amazon.com/serverless/serverlessrepo/)

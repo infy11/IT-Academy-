@@ -17,6 +17,6 @@ export class StudentService {
   constructor(private http:HttpClient) { }
 
   saveStudent(student:Student):Observable<Student>{
-    return this.http.post<Student>("https://a5kjl3x939.execute-api.us-east-1.amazonaws.com/Prod/save",student,httpOptions)
+    return this.http.post<Student>("https://ovgihzj257.execute-api.us-east-1.amazonaws.com/Prod/save",student,httpOptions)
   }
 }

@@ -10,38 +10,16 @@ Outputs:
     Description: API Gateway endpoint URL for Prod stage for Hello World function
     Value:
       Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/
-  HelloWorldFunction:
-    Description: Hello World Lambda Function ARN
-    Value:
-      Fn::GetAtt:
-      - HelloWorldFunction
-      - Arn
-  HelloWorldFunctionIamRole:
-    Description: Implicit IAM Role created for Hello World function
-    Value:
-      Fn::GetAtt:
-      - HelloWorldFunctionRole
-      - Arn
 Resources:
-  HelloWorldFunction:
-    Properties:
-      CodeUri: s3://it-academy-lambda/ab5a0914af51509203a2cf1feb4ea236
-      Environment:
-        Variables:
-          PARAM1: VALUE
-      Events:
-        HelloWorld:
-          Properties:
-            Method: get
-            Path: /hello
-          Type: Api
-      Handler: app.lambdaHandler
-      Runtime: nodejs8.10
-    Type: AWS::Serverless::Function
   SaveStudent:
     Properties:
-      CodeUri: s3://it-academy-lambda/45378ac32effeb7054fdd8f98b198352
+      CodeUri: s3://it-academy-lambda/288fff78d9065b261c71b58fc93737b4
       Events:
+        OptionStudent:
+          Properties:
+            Method: options
+            Path: /save
+          Type: Api
         SaveStudent:
           Properties:
             Method: post
@@ -54,7 +32,7 @@ Resources:
   StudentTable:
     Properties:
       PrimaryKey:
-        Name: id
+        Name: regNo
         Type: String
       ProvisionedThroughput:
         ReadCapacityUnits: 5

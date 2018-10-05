@@ -54,6 +54,7 @@ export class RegistrationComponent implements OnInit {
         icon: "error",
 
       });
+      this.isClicked=false;
     
     },
 
@@ -64,6 +65,7 @@ export class RegistrationComponent implements OnInit {
         icon: "success",
 
       });
+      this.isClicked=false;
     }
     
     

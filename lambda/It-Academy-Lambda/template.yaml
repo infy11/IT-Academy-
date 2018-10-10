@@ -12,6 +12,9 @@ Globals:
 
 
 Resources:
+
+#LAMBDA SECTION
+
     SaveStudent:
         Type: AWS::Serverless::Function
         Properties:
@@ -19,19 +22,50 @@ Resources:
             Handler: app.lambdaHandler
             Runtime: nodejs8.10
             Policies: AmazonDynamoDBFullAccess
+            Environment:
+                Variables:
+                    ENDPOINT: dynamodb.us-east-1.amazonaws.com
+                    REGION: us-east-1
+
             Events:
                 SaveStudent:
                     Type: Api
                     Properties:
-                        Path: /save
+                        Path: /student
                         Method: post
+            
+    OptionStudent:
+        Type: AWS::Serverless::Function
+        Properties:
+            CodeUri: option_student/
+            Handler: app.lambdaHandler
+            Runtime: nodejs8.10
+            Events:
                 OptionStudent:
                     Type: Api
                     Properties:
-                        Path: /save
+                        Path: /student
                         Method: options
-                                   
 
+    Login:
+        Type: AWS::Serverless::Function
+        Properties:
+            CodeUri: login/
+            Handler: app.lambdaHandler
+            Runtime: nodejs8.10
+            Policies: AmazonDynamoDBReadOnlyAccess
+            Environment:
+                Variables:
+                    ENDPOINT: dynamodb.us-east-1.amazonaws.com
+                    REGION: us-east-1
+            Events:
+                login:
+                    Type: Api
+                    Properties:
+                        Path: /login
+                        Method: post                         
+
+# TABLE SECTION
     StudentTable:
         Type: AWS::Serverless::SimpleTable   
         Properties: 
@@ -43,10 +77,20 @@ Resources:
                 ReadCapacityUnits: 5
                 WriteCapacityUnits: 5
 
+    SecretTable:
+        Type: AWS::Serverless::SimpleTable   
+        Properties: 
+            TableName: Secret
+            PrimaryKey:
+                Name: key
+                Type: String
+            ProvisionedThroughput:
+                ReadCapacityUnits: 1
+                WriteCapacityUnits: 1                
 Outputs:
 
     HelloWorldApi:
       Description: "API Gateway endpoint URL for Prod stage for Hello World function"
-      Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
+      Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/student/"
 
 

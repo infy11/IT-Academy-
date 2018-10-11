@@ -6,9 +6,20 @@ Description: >
     
     
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+
+#GLOBAL SECTION
+
+
 Globals:
     Function:
         Timeout: 3
+        Runtime: nodejs8.10
+        Handler: app.lambdaHandler
+        Environment:
+            Variables:
+                ENDPOINT: dynamodb.us-east-1.amazonaws.com
+                REGION: us-east-1
+
 
 
 Resources:
@@ -19,14 +30,7 @@ Resources:
         Type: AWS::Serverless::Function
         Properties:
             CodeUri: save_students/
-            Handler: app.lambdaHandler
-            Runtime: nodejs8.10
             Policies: AmazonDynamoDBFullAccess
-            Environment:
-                Variables:
-                    ENDPOINT: dynamodb.us-east-1.amazonaws.com
-                    REGION: us-east-1
-
             Events:
                 SaveStudent:
                     Type: Api
@@ -38,8 +42,6 @@ Resources:
         Type: AWS::Serverless::Function
         Properties:
             CodeUri: option_student/
-            Handler: app.lambdaHandler
-            Runtime: nodejs8.10
             Events:
                 OptionStudent:
                     Type: Api
@@ -51,21 +53,24 @@ Resources:
         Type: AWS::Serverless::Function
         Properties:
             CodeUri: login/
-            Handler: app.lambdaHandler
-            Runtime: nodejs8.10
             Policies: AmazonDynamoDBReadOnlyAccess
-            Environment:
-                Variables:
-                    ENDPOINT: dynamodb.us-east-1.amazonaws.com
-                    REGION: us-east-1
             Events:
                 login:
                     Type: Api
                     Properties:
                         Path: /login
-                        Method: post                         
+                        Method: post      
+
+    Authenticator:
+        Type: AWS::Serverless::Function
+        Properties:
+            CodeUri: authenticator/
+            Policies: AmazonDynamoDBReadOnlyAccess
+                                        
+                                
 
 # TABLE SECTION
+
     StudentTable:
         Type: AWS::Serverless::SimpleTable   
         Properties: 
@@ -86,7 +91,19 @@ Resources:
                 Type: String
             ProvisionedThroughput:
                 ReadCapacityUnits: 1
-                WriteCapacityUnits: 1                
+                WriteCapacityUnits: 1 
+    
+    usersTable:
+        Type: AWS::Serverless::SimpleTable   
+        Properties: 
+            TableName: users
+            PrimaryKey:
+                Name: user
+                Type: String
+            ProvisionedThroughput:
+                ReadCapacityUnits: 1
+                WriteCapacityUnits: 1                 
+
 Outputs:
 
     HelloWorldApi:

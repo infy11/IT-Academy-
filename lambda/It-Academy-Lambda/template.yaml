@@ -49,6 +49,18 @@ Resources:
                         Path: /student
                         Method: options
 
+    view_student_admin:
+        Type: AWS::Serverless::Function
+        Properties:
+            CodeUri: view_student_admin/
+            Policies: AmazonDynamoDBReadOnlyAccess
+            Events:
+                view_student:
+                    Type: Api
+                    Properties:
+                        Path: /student
+                        Method: get                    
+
     Login:
         Type: AWS::Serverless::Function
         Properties:

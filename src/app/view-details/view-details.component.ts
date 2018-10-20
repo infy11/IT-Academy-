@@ -18,6 +18,7 @@ export class ViewDetailsComponent implements OnInit {
     this.studentService.ViewStudent().subscribe(
       student=>{
         this.student_details=student;
+        console.log(JSON.stringify(student));
 
         
 

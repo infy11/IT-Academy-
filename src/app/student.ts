@@ -3,6 +3,7 @@ import {Education} from './education';
 
 export class Student {
   constructor(
+    public regNo:String,
     public firstName:String,
     public lastName:String,
     public category:String,

@@ -56,7 +56,7 @@
                   </div>
                 </div>
                 <div class="col-sm">
-                  <input type="text" [(ngModel)]="student.dob" required class="form-control topSpace" name="dob"
+                  <input type="text" [(ngModel)]="student.dob" [minDate]="minDate" required class="form-control topSpace" name="dob"
                     placeholder="Date of Birth" (focus)="d.toggle()" ngbDatepicker #d="ngbDatepicker" />
                 </div>
               </div>
@@ -98,7 +98,7 @@
 
               <div class="row">
                 <div class="col-sm">
-                  <input type="number" [(ngModel)]="course.regNo" required class="form-control topSpace" name="regno"
+                  <input type="number" [(ngModel)]="student.regNo" required class="form-control topSpace" name="regno"
                     placeholder="Reg no">
                 </div>
                 <div class="col-sm">
@@ -118,7 +118,7 @@
               </div>
               <div class="row">
                 <div class="col-sm">
-                  <input type="text" [(ngModel)]="course.date" required class="form-control topSpace" name="date"
+                  <input type="text" [(ngModel)]="course.date" [minDate]="minDate" required class="form-control topSpace" name="date"
                     placeholder="Date" (focus)="e.toggle()" ngbDatepicker #e="ngbDatepicker" />
                 </div>
                 <div class="col-sm"></div>

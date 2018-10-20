@@ -12,6 +12,7 @@ import {MarksComponent} from './marks/marks.component';
 import { HomeComponent } from './home/home.component';
 import {StudentService} from './student.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ViewDetailsComponent } from './view-details/view-details.component';
 
 
 
@@ -20,7 +21,8 @@ const routes: Routes = [
   { path: 'Registration', component:RegistrationComponent },
   { path: 'Navbar', component:NavbarComponent },
   { path: 'Marks',component:MarksComponent},
-  { path:'Home',component:HomeComponent}
+  { path:'Home',component:HomeComponent},
+  {path: 'View_details', component:ViewDetailsComponent}
 ];
 
 @NgModule({
@@ -31,7 +33,8 @@ const routes: Routes = [
     NavbarComponent,
     FooterComponent,
     MarksComponent,
-    HomeComponent
+    HomeComponent,
+    ViewDetailsComponent
   ],
   imports: [
     BrowserModule,

@@ -15,12 +15,13 @@ import swal from 'sweetalert'
 })
 export class RegistrationComponent implements OnInit {
 
+  minDate = {year: 1970, month: 1, day: 1};
   isClicked=false;
   state:String[]=['UTTRAKHAND','UTTRAPRADESH'];
   gender:String[]=['MALE','FEMALE'];
   category:String[]=['UR','OBC','SC','ST'];
   defaultCategory:string=null;
-  course:Course=new Course('','','','','');
+  course:Course=new Course('','','','');
   educationDetails:Array<Education>=[];
   highschool=new Education('highschool','','','','');
   intermediate=new Education('intermediate','','','','');
@@ -28,7 +29,7 @@ export class RegistrationComponent implements OnInit {
   others=new Education('others','','','','');
 
 
-  student:Student=new Student('','','category','gender','','','','','','','','state',this.course,this.educationDetails);
+  student:Student=new Student('','','','category','gender','','','','','','','','state',this.course,this.educationDetails);
  onSubmit(){
    this.isClicked=true;
 

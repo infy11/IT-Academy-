@@ -1,20 +1,111 @@
 <div class="container full-height">
   <div class="row top-space">
     <div class="col-md-12">
-    <div class="card shadow top-space">
-      <div class="card-body">
-      {{student_details|json}}
-      <br/>           
+      <div class="card shadow top-space">
+        <div class="card-body">
+          <h1>Personal Details</h1>
+          <hr />
+          <br />
+          <div class="row">
 
-      <h1> trying to fetch course details </h1>
-      {{student_details.Item.course|json}}
+            <div class="col-md-4">
+              <h5> First Name:</h5> {{student_details.Item.firstName}}
+              <hr />
+              <h5> Mother Name:</h5> {{student_details.Item.motherName}}
+              <hr />
+              <h5> Category: </h5>{{student_details.Item.category}}
+              <hr />
+              <h5> Mobile No.: </h5> {{student_details.Item.mobileNo}}
+              <hr />
+              <h5> State: </h5> {{student_details.Item.state}}
+              <br />
+              <hr />
+              <h5> Village: </h5> {{student_details.Item.village}}
+              <hr />
+
+
+
+
+
+            </div>
+            <div class="col-md-4">
+              <h5> Last Name: </h5>{{student_details.Item.lastName}}
+              <hr />
+              <h5> Father Name:</h5> {{student_details.Item.fatherName}}
+              <hr />
+              <h5> Gender:</h5> {{student_details.Item.gender}}
+              <hr />
+              <h5> DOB: </h5>
+              {{student_details.Item.dob.day}}-{{student_details.Item.dob.month}}-{{student_details.Item.dob.year}}
+              <hr />
+              <h5> Address.: </h5>{{student_details.Item.address}}
+
+              <hr />
+              <h5> City: </h5>{{student_details.Item.city}}
+              <hr />
+            </div>
+            <div class="col-md-4"></div>
+          </div>
+
+
+          <br />
+
+          <h1> Course Details </h1>
+          <hr /> <br />
+          <div class="row">
+
+            <div class="col-md-4">
+              <h5> Registration Number:</h5> {{student_details.Item.regNo}}
+              <hr />
+              <h5> Course Name:</h5> {{student_details.Item.course.courseName}}
+              <hr />
+              <h5> Duration: </h5>{{student_details.Item.course.duration}}
+              <hr />
+            </div>
+            <div class="col-md-4">
+              <h5> Center Name: </h5>{{student_details.Item.course.centreName}}
+              <hr />
+              <h5> Start Date:</h5>
+              {{student_details.Item.course.date.day}}-{{student_details.Item.course.date.month}}-{{student_details.Item.course.date.year}}
+              <hr />
+            </div>
+            <div class="col-md-4"></div>
+
+          
+         
+        </div>
+        <h1> Education Details </h1>
+        <hr />
+         <br />
+        <div class="row">
+          <div class="col-md-12">
+              <table class="table">
+                  <thead>
+                      <th>course</th>
+                      <th>subject</th>
+                      <th>board</th>
+                      <th>passing year</th>
+                      <th>marks obtained</th>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let education of student_details.Item.education">
+                          <td>{{education.course}}</td>
+                          <td>{{education.subject}}</td>
+                          <td>{{education.board}}</td>
+                          <td>{{education.passingYear}}</td>
+                          <td>{{education.marksObtained}}</td>
+                          
+                      </tr>
+                     
+                  </tbody>
+              </table>
+          </div>
+        </div>
 
       </div>
+      <hr/>
+
+
+
     </div>
-
-    </div>
-
-
-
   </div>
-</div>

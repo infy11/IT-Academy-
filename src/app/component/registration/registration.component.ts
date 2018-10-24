@@ -4,6 +4,8 @@ import {Student} from '../../student';
 import {Education } from '../../education';
 import { StudentService} from '../../student.service';
 import swal from 'sweetalert'
+import * as  AWS from 'aws-sdk';
+
 
 
 
@@ -14,6 +16,7 @@ import swal from 'sweetalert'
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
+
 
   minDate = {year: 1970, month: 1, day: 1};
   isClicked=false;
@@ -75,6 +78,39 @@ export class RegistrationComponent implements OnInit {
    
 
  }
+
+ fileUpload(fileInput:any){
+   console.log("file upload called");
+  const target_file = fileInput.target.files[0];
+  const buckerName='it-academy-photos-bucket';
+
+  AWS.config.region = 'us-east-1'; // Region
+  AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+      IdentityPoolId: "us-east-1:65274202-1f4d-4482-a63c-c822d367c4c6",
+  }); 
+  const s3 = new AWS.S3({
+    apiVersion: '2006-03-01',
+    params: { Bucket: buckerName}
+  });
+
+  s3.upload(
+    { Key: target_file.name, Bucket: buckerName, Body: target_file, ACL: 'public-read'}
+  ,(err,data)=>{
+    if(data)
+    {
+      console.log(data);
+    }
+    else{
+      console.log(err);
+    }
+
+  })
+ 
+
+};
+
+
+ 
 
   constructor(private studentService:StudentService) { 
 

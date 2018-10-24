@@ -114,12 +114,91 @@ Resources:
                 Type: String
             ProvisionedThroughput:
                 ReadCapacityUnits: 1
-                WriteCapacityUnits: 1                 
+                WriteCapacityUnits: 1        
+
+ #S3 BUCKET PORTION 
+    photoBucket:
+        Type: AWS::S3::Bucket 
+        Properties:
+            BucketName: it-academy-photos-bucket 
+            CorsConfiguration: 
+                CorsRules:
+                    - AllowedHeaders: ['*']
+                      AllowedMethods: [GET,POST,PUT]
+                      AllowedOrigins: ['*']
+                      Id: myrules   
+
+
+    cognitoRole:
+        Type: AWS::IAM::Role
+        Properties:
+             AssumeRolePolicyDocument: 
+                Version: "2012-10-17"
+                Statement:
+                    - 
+                        Effect: Allow
+                        Principal:
+                         Federated:
+                           - "cognito-identity.amazonaws.com"
+                             
+                        Action:
+                           - sts:AssumeRoleWithWebIdentity 
+                        Condition:
+                            ForAnyValue:StringLike:
+                                cognito-identity.amazonaws.com:amr: unauthenticated   
+                       
+
+             Policies:
+                -
+                    PolicyName: "photo_client_policy"
+                    PolicyDocument:
+                        Version: '2012-10-17'
+                        Statement:
+                           
+                            - 
+                             Sid: VisualEditor1
+                             Effect: Allow
+                             Action:
+                               - s3:PutObject
+                               - s3:GetObjectAcl
+                               - s3:GetObject
+                               - s3:GetObjectTorrent
+                               - s3:GetObjectVersionAcl
+                               - s3:PutObjectVersionTagging
+                               - s3:GetObjectTagging
+                               - s3:PutObjectTagging
+                               - s3:PutBucketCORS
+                               - s3:PutObjectAcl
+                               - s3:GetObjectVersion
+                             Resource: "*"
+                               
+                               
+    cognitoIdentityPool:
+        Type: AWS::Cognito::IdentityPool
+        Properties:
+            IdentityPoolName: "photo_bucket"
+            AllowUnauthenticatedIdentities: true
+
+    cognitoIdentityPoolRoleAttachment:
+        Type: AWS::Cognito::IdentityPoolRoleAttachment
+        Properties:
+            IdentityPoolId: !Ref cognitoIdentityPool
+            Roles:
+                unauthenticated: !GetAtt cognitoRole.Arn
+      
 
 Outputs:
 
     HelloWorldApi:
       Description: "API Gateway endpoint URL for Prod stage for Hello World function"
       Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/student/"
+
+    cognitoIdentity:
+      Description: "cognito identity pool name"
+      Value: !Ref cognitoIdentityPool
+
+    S3Bucket:
+      Description: "s3 bucket name"
+      Value: !Ref photoBucket     
 
 

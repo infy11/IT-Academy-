@@ -135,7 +135,7 @@
                   <button class="input-group-text" id="inputGroupFileAddon01">Upload</button>
                 </div>
                 <div class="custom-file">
-                  <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                  <input type="file" class="custom-file-input" (change)="fileUpload($event)"  id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
                   <label class="custom-file-label" for="inputGroupFile01">filename</label>
                 </div>
               </div>

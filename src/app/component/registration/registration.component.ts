@@ -17,7 +17,7 @@ import * as  AWS from 'aws-sdk';
 })
 export class RegistrationComponent implements OnInit {
 
-
+  fileName:String="upload file"
   minDate = {year: 1970, month: 1, day: 1};
   isClicked=false;
   state:String[]=['UTTRAKHAND','UTTRAPRADESH'];
@@ -32,7 +32,7 @@ export class RegistrationComponent implements OnInit {
   others=new Education('others','','','','');
 
 
-  student:Student=new Student('','','','category','gender','','','','','','','','state',this.course,this.educationDetails);
+  student:Student=new Student('','','','category','gender','','','','','','','','state','',this.course,this.educationDetails);
  onSubmit(){
    this.isClicked=true;
 
@@ -81,8 +81,12 @@ export class RegistrationComponent implements OnInit {
 
  fileUpload(fileInput:any){
    console.log("file upload called");
+   
   const target_file = fileInput.target.files[0];
+  this.fileName=fileInput.target.files[0].name;
+
   const buckerName='it-academy-photos-bucket';
+
 
   AWS.config.region = 'us-east-1'; // Region
   AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -99,6 +103,7 @@ export class RegistrationComponent implements OnInit {
     if(data)
     {
       console.log(data);
+      this.student.photo=data.Location;
     }
     else{
       console.log(err);

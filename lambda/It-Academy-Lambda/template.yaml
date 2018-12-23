@@ -4,7 +4,10 @@ Description: >
     IT-Academy
 
     
-    
+# we have to manually add the following values for secret and users table as of now
+# for secret table key myvalue
+# for users table admin 9457611267
+# in order to let authentication work properly     
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 
 #GLOBAL SECTION
@@ -25,6 +28,17 @@ Globals:
 Resources:
 
 #LAMBDA SECTION
+    RegistrationNo:
+        Type: AWS:Serverless:Function
+        Properties:
+            CodeUri: registration_no/
+            Policies: AmazonDynamoDBFullAccess
+        Events:
+            Generate:
+                Type: Api
+                Properties:
+                    Path: /generate
+                    Method: get
 
     SaveStudent:
         Type: AWS::Serverless::Function
@@ -78,6 +92,9 @@ Resources:
         Properties:
             CodeUri: authenticator/
             Policies: AmazonDynamoDBReadOnlyAccess
+
+
+
                                         
                                 
 
@@ -114,7 +131,20 @@ Resources:
                 Type: String
             ProvisionedThroughput:
                 ReadCapacityUnits: 1
-                WriteCapacityUnits: 1        
+                WriteCapacityUnits: 1    
+                
+    registrationNoTable:
+        Type: AWS::Serverless::SimpleTable
+        Properties:
+            TableName: registrationNo
+            PrimaryKey:
+                Name: registrationNo
+                Type: Integer
+            ProvisionedThroughput:
+                ReadCapacityUnits: 1
+                WriteCapacityUnits: 1    
+                    
+
 
  #S3 BUCKET PORTION 
     photoBucket:

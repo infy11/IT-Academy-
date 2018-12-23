@@ -17,6 +17,7 @@ export class ViewDetailsComponent implements OnInit {
   constructor(private studentService:StudentService) { 
     this.studentService.ViewStudent().subscribe(
       student=>{
+        //this.student_details.photo="https://s3.amazonaws.com/it-academy-photos-bucket/varnit-photo.jpg";
         this.student_details=student;
         console.log(JSON.stringify(student));
 

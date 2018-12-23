@@ -16,6 +16,7 @@ export class Student {
     public village:String,
     public city:String,
     public state:String,
+    public photo:String,
     public course:Course,
     public education:Education[]
   ){}

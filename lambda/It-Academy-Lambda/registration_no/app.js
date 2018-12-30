@@ -8,31 +8,31 @@ AWS.config.update = {
 }
 var docClient = new AWS.DynamoDB.DocumentClient();
 var table = "registrationNo";
+
 const getRegistrationNo = async function () {
 
   return new Promise((resolve, reject) => {
-
-
-
     var params = {
       TableName: table,
-      ProjectionExpression: "registrationNo"
+      Key: {
+        id: 1
+
+      },
+      ProjectionExpression: "RegNo"
 
 
     };
 
-    docClient.query(params, function (err, data) {
-      console.log("inside docclient.put function")
+    docClient.get(params, function (err, data) {
+
       if (err) {
         console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
         reject(err);
       } else {
-        if (isEmpty(data)) {
-          reject("invalid reg no")
-        }
-        console.log("got item:", JSON.stringify(data, null, 2));
 
-        return resolve(JSON.stringify(data, null, 2));
+
+
+        return resolve(data);
       }
     });
 
@@ -43,26 +43,30 @@ const getRegistrationNo = async function () {
 const setRegistrationNo = async function (regNo) {
 
   return new Promise((resolve, reject) => {
-
-
-    const regNo = JSON.parse(regNo);
-    console.log("printing registration no " + regNo)
-
     var params = {
       TableName: table,
-      Item: regNo
+      Key: {
+        'id': 1,
+
+      },
+      UpdateExpression: 'set RegNo = :t',
+      ExpressionAttributeValues: {
+        ':t': regNo,
+
+      }
+
 
     }
 
-    docClient.put(params, function (err, data) {
-      console.log("inside docclient.put function")
+    docClient.update(params, function (err, data) {
+
       if (err) {
         console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
         reject(JSON.stringify({
           'status': err
         }));
       } else {
-        console.log("Added item:", JSON.stringify(data, null, 2));
+        
         return resolve(JSON.stringify(data, null, 2));
       }
     });
@@ -70,6 +74,23 @@ const setRegistrationNo = async function (regNo) {
   })
 }
 
+const generateRegistrationNo = async function () {
+  let latestRegistrationNoResponse = await getRegistrationNo();
+  let latestRegistrationNo = latestRegistrationNoResponse.Item.RegNo + 1;
+
+
+  await setRegistrationNo(latestRegistrationNo);
+
+  return new Promise((resolve, reject) => {
+
+
+    resolve({
+      "regNo": latestRegistrationNo
+    });
+
+
+  })
+}
 
 const headers = {
 
@@ -83,17 +104,29 @@ const headers = {
 }
 
 exports.lambdaHandler = async (event, context, cb) => {
+  let stringResponse=""
+  console.log(event);
   try {
+    stringResponse=JSON.stringify(await generateRegistrationNo());
     response = {
       'statusCode': 200,
       'headers': headers,
 
-      'body': await savestu(event.body)
+      'body': await stringResponse
     }
   } catch (err) {
-    console.log(err);
-    return err;
+    console.log("in the err block");
+    let errResponse = {
+            'statusCode': 400,
+            'headers': headers,
+          
+            'body': {"status": err}
+        }
+    
+    return errResponse;
+
   }
+  console.log("error not occured"+stringResponse);
 
   return response
 };

@@ -8,6 +8,7 @@ Description: >
 # for secret table key myvalue
 # for users table admin 9457611267
 # in order to let authentication work properly     
+# initialize registrationNo table with following items {"id": 1,"RegNo": 1000}
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 
 #GLOBAL SECTION
@@ -29,16 +30,27 @@ Resources:
 
 #LAMBDA SECTION
     RegistrationNo:
-        Type: AWS:Serverless:Function
+        Type: AWS::Serverless::Function
         Properties:
             CodeUri: registration_no/
             Policies: AmazonDynamoDBFullAccess
-        Events:
-            Generate:
-                Type: Api
-                Properties:
-                    Path: /generate
-                    Method: get
+            Events:
+                Generate:
+                    Type: Api
+                    Properties:
+                        Path: /generate
+                        Method: get
+    
+    OptionRegistrationNo:
+        Type: AWS::Serverless::Function
+        Properties:
+            CodeUri: option_student/
+            Events:
+                OptionStudent:
+                    Type: Api
+                    Properties:
+                        Path: /generate
+                        Method: options                    
 
     SaveStudent:
         Type: AWS::Serverless::Function
@@ -63,13 +75,13 @@ Resources:
                         Path: /student
                         Method: options
 
-    view_student_admin:
+    ViewStudentAdmin:
         Type: AWS::Serverless::Function
         Properties:
             CodeUri: view_student_admin/
             Policies: AmazonDynamoDBReadOnlyAccess
             Events:
-                view_student:
+                ViewStudent:
                     Type: Api
                     Properties:
                         Path: /student
@@ -86,6 +98,17 @@ Resources:
                     Properties:
                         Path: /login
                         Method: post      
+    
+    OptionLogin:
+        Type: AWS::Serverless::Function
+        Properties:
+            CodeUri: option_student/
+            Events:
+                OptionLogin:
+                    Type: Api
+                    Properties:
+                        Path: /login
+                        Method: options                    
 
     Authenticator:
         Type: AWS::Serverless::Function
@@ -138,8 +161,8 @@ Resources:
         Properties:
             TableName: registrationNo
             PrimaryKey:
-                Name: registrationNo
-                Type: Integer
+                Name: id
+                Type: Number
             ProvisionedThroughput:
                 ReadCapacityUnits: 1
                 WriteCapacityUnits: 1    
@@ -220,7 +243,7 @@ Resources:
 Outputs:
 
     HelloWorldApi:
-      Description: "API Gateway endpoint URL for Prod stage for Hello World function"
+      Description: "API Gateway endpoint URL"
       Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/student/"
 
     cognitoIdentity:

@@ -1,0 +1,192 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'IT-Academy
+
+  '
+Globals:
+  Function:
+    Environment:
+      Variables:
+        ENDPOINT: dynamodb.us-east-1.amazonaws.com
+        REGION: us-east-1
+    Handler: app.lambdaHandler
+    Runtime: nodejs8.10
+    Timeout: 3
+Outputs:
+  HelloWorldApi:
+    Description: API Gateway endpoint URL for Prod stage for Hello World function
+    Value:
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/student/
+  S3Bucket:
+    Description: s3 bucket name
+    Value:
+      Ref: photoBucket
+  cognitoIdentity:
+    Description: cognito identity pool name
+    Value:
+      Ref: cognitoIdentityPool
+Resources:
+  Authenticator:
+    Properties:
+      CodeUri: s3://it-academy-lambda/c628b252c47d1d72947682bb45f98048
+      Policies: AmazonDynamoDBReadOnlyAccess
+    Type: AWS::Serverless::Function
+  Login:
+    Properties:
+      CodeUri: s3://it-academy-lambda/06e6a4e696e1e34cfc45fcf93e532a31
+      Events:
+        login:
+          Properties:
+            Method: post
+            Path: /login
+          Type: Api
+      Policies: AmazonDynamoDBReadOnlyAccess
+    Type: AWS::Serverless::Function
+  OptionStudent:
+    Properties:
+      CodeUri: s3://it-academy-lambda/f6e13f26741a38485b0fa5f3ee70a387
+      Events:
+        OptionStudent:
+          Properties:
+            Method: options
+            Path: /student
+          Type: Api
+    Type: AWS::Serverless::Function
+  RegistrationNo:
+    Properties:
+      CodeUri: s3://it-academy-lambda/052e5b2b2c0a4330193fe3b9b5fd5698
+      Events:
+        Generate:
+          Properties:
+            Method: get
+            Path: /generate
+          Type: Api
+      Policies: AmazonDynamoDBFullAccess
+    Type: AWS::Serverless::Function
+  SaveStudent:
+    Properties:
+      CodeUri: s3://it-academy-lambda/8808dfc95dbf7cfe7f0e800413637778
+      Events:
+        SaveStudent:
+          Properties:
+            Method: post
+            Path: /student
+          Type: Api
+      Policies: AmazonDynamoDBFullAccess
+    Type: AWS::Serverless::Function
+  SecretTable:
+    Properties:
+      PrimaryKey:
+        Name: key
+        Type: String
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
+      TableName: Secret
+    Type: AWS::Serverless::SimpleTable
+  StudentTable:
+    Properties:
+      PrimaryKey:
+        Name: regNo
+        Type: String
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+      TableName: Student
+    Type: AWS::Serverless::SimpleTable
+  ViewStudentAdmin:
+    Properties:
+      CodeUri: s3://it-academy-lambda/ededdaa51e4ca1ad574f6796e2e1c9dc
+      Events:
+        ViewStudent:
+          Properties:
+            Method: get
+            Path: /student
+          Type: Api
+      Policies: AmazonDynamoDBReadOnlyAccess
+    Type: AWS::Serverless::Function
+  cognitoIdentityPool:
+    Properties:
+      AllowUnauthenticatedIdentities: true
+      IdentityPoolName: photo_bucket
+    Type: AWS::Cognito::IdentityPool
+  cognitoIdentityPoolRoleAttachment:
+    Properties:
+      IdentityPoolId:
+        Ref: cognitoIdentityPool
+      Roles:
+        unauthenticated:
+          Fn::GetAtt:
+          - cognitoRole
+          - Arn
+    Type: AWS::Cognito::IdentityPoolRoleAttachment
+  cognitoRole:
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+        - Action:
+          - sts:AssumeRoleWithWebIdentity
+          Condition:
+            ForAnyValue:StringLike:
+              cognito-identity.amazonaws.com:amr: unauthenticated
+          Effect: Allow
+          Principal:
+            Federated:
+            - cognito-identity.amazonaws.com
+        Version: '2012-10-17'
+      Policies:
+      - PolicyDocument:
+          Statement:
+          - Action:
+            - s3:PutObject
+            - s3:GetObjectAcl
+            - s3:GetObject
+            - s3:GetObjectTorrent
+            - s3:GetObjectVersionAcl
+            - s3:PutObjectVersionTagging
+            - s3:GetObjectTagging
+            - s3:PutObjectTagging
+            - s3:PutBucketCORS
+            - s3:PutObjectAcl
+            - s3:GetObjectVersion
+            Effect: Allow
+            Resource: '*'
+            Sid: VisualEditor1
+          Version: '2012-10-17'
+        PolicyName: photo_client_policy
+    Type: AWS::IAM::Role
+  photoBucket:
+    Properties:
+      BucketName: it-academy-photos-bucket
+      CorsConfiguration:
+        CorsRules:
+        - AllowedHeaders:
+          - '*'
+          AllowedMethods:
+          - GET
+          - POST
+          - PUT
+          AllowedOrigins:
+          - '*'
+          Id: myrules
+    Type: AWS::S3::Bucket
+  registrationNoTable:
+    Properties:
+      PrimaryKey:
+        Name: registrationNo
+        Type: Number
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
+      TableName: registrationNo
+    Type: AWS::Serverless::SimpleTable
+  usersTable:
+    Properties:
+      PrimaryKey:
+        Name: user
+        Type: String
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
+      TableName: users
+    Type: AWS::Serverless::SimpleTable
+Transform: AWS::Serverless-2016-10-31

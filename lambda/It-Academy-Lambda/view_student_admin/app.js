@@ -60,7 +60,7 @@ const headers={
    
 }
 
-exports.handler = async (event, context,cb) => {
+exports.lambdaHandler = async (event, context,cb) => {
     try {
         console.log("printing full event object"+JSON.stringify(event));
             response = {

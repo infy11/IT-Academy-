@@ -5,6 +5,7 @@ import {Education } from '../../education';
 import { StudentService} from '../../student.service';
 import swal from 'sweetalert'
 import * as  AWS from 'aws-sdk';
+import { RegistrationNo } from 'src/app/registration-no';
 
 
 
@@ -30,9 +31,10 @@ export class RegistrationComponent implements OnInit {
   intermediate=new Education('intermediate','','','','');
   graduation=new Education('graduation','','','','');
   others=new Education('others','','','','');
+  RegistrationNo:String ="";
 
 
-  student:Student=new Student('','','','category','gender','','','','','','','','state','',this.course,this.educationDetails);
+  student:Student=new Student(this.RegistrationNo,'','','category','gender','','','','','','','','state','',this.course,this.educationDetails);
  onSubmit(){
    this.isClicked=true;
 
@@ -90,7 +92,7 @@ export class RegistrationComponent implements OnInit {
 
   AWS.config.region = 'us-east-1'; // Region
   AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-      IdentityPoolId: "us-east-1:65274202-1f4d-4482-a63c-c822d367c4c6",
+      IdentityPoolId: "us-east-1:9f1aedc7-a078-4541-ae72-8366dbaf3c12",
   }); 
   const s3 = new AWS.S3({
     apiVersion: '2006-03-01',
@@ -98,7 +100,7 @@ export class RegistrationComponent implements OnInit {
   });
 
   s3.upload(
-    { Key: target_file.name, Bucket: buckerName, Body: target_file, ACL: 'public-read'}
+    { Key: this.student.regNo.toString(), Bucket: buckerName, Body: target_file, ACL: 'public-read'}
   ,(err,data)=>{
     if(data)
     {
@@ -118,6 +120,18 @@ export class RegistrationComponent implements OnInit {
  
 
   constructor(private studentService:StudentService) { 
+    this.studentService.generateRegistrationNo().subscribe(
+      regNo=>{
+       
+        
+        this.RegistrationNo=regNo.regNo.toString();
+        this.student.regNo=this.RegistrationNo;
+        
+        
+
+
+      }
+    );
 
   }
 

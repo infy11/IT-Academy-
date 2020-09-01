@@ -7,7 +7,7 @@
   "author": "SAM CLI",
   "license": "MIT",
   "dependencies": {
-    "njwt": "^0.4.0"
+    "njwt": "^1.0.0"
   },
   "scripts": {
     "test": "mocha tests/unit/"
